@@ -51,6 +51,11 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	//if (TTF_Init() != 0)
+	//{
+	//	throw std::runtime_error(std::string("TTF_Init Error: ") + TTF_GetError());
+	//}
+
 	g_window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
@@ -85,10 +90,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
-	// todo: this update loop could use some work.
 	bool doContinue = true;
 	auto last_time = std::chrono::high_resolution_clock::now();
 	float lag = 0.0f;
+
+	int frameCount = 0;
+	auto fpsTimer = std::chrono::high_resolution_clock::now();
 
 	while (doContinue)
 	{
@@ -107,6 +114,17 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		sceneManager.Update(delta_time);
 		renderer.Render();
+
+		// FPS Counter
+		++frameCount;
+		const auto fpsDuration = std::chrono::duration<float>(current_time - fpsTimer).count();
+		if (fpsDuration >= 1.0f)
+		{
+			printf("FPS: %d\n", frameCount);
+			frameCount = 0;
+			fpsTimer = current_time;
+		}
+
 
 		const auto sleep_time = current_time + std::chrono::milliseconds(ms_per_frame) - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleep_time);
