@@ -1,8 +1,9 @@
 #include "RenderComponent.h"
 #include "Renderer.h"
 
-dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture)
-	: m_Texture{ texture }
+dae::RenderComponent::RenderComponent(GameObject* owner, std::shared_ptr<Texture2D> texture)
+	: Component(owner),
+	m_Texture{ texture }
 {
 }
 
@@ -10,8 +11,12 @@ void dae::RenderComponent::Render() const
 {
 	if (m_Texture)
 	{
-		const auto& pos = GetOwner()->GetTransform().GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+		auto owner = GetOwner();
+		if (owner)
+		{
+			const auto& pos = GetOwner()->GetTransform().GetPosition();
+			Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+		}
 	}
 }
 

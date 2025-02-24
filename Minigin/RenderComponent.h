@@ -7,7 +7,7 @@ namespace dae
 	class RenderComponent final : public Component
 	{
 	public:
-		RenderComponent(std::shared_ptr<Texture2D> texture);
+		RenderComponent(GameObject* owner, std::shared_ptr<Texture2D> texture);
 		void Update(float /*deltaTime*/) override {};
 		void Render() const override;
 		void SetTexture(std::shared_ptr<Texture2D> texture);

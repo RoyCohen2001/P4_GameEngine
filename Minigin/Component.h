@@ -12,8 +12,8 @@ namespace dae
 
         GameObject* GetOwner() const { return m_pOwner; }
 
-        Component() = default;
-        virtual ~Component() {};
+        explicit Component(GameObject* owner) : m_pOwner(owner) {}
+        virtual ~Component() = default;
         Component(const Component& other) = delete;
         Component(Component&& other) = delete;
         Component& operator=(const Component& other) = delete;

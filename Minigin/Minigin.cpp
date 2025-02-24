@@ -94,8 +94,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto last_time = std::chrono::high_resolution_clock::now();
 	float lag = 0.0f;
 
-	int frameCount = 0;
-	auto fpsTimer = std::chrono::high_resolution_clock::now();
+	//int frameCount = 0;
+	//auto fpsTimer = std::chrono::high_resolution_clock::now();
 
 	while (doContinue)
 	{
@@ -115,15 +115,17 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		sceneManager.Update(delta_time);
 		renderer.Render();
 
-		// FPS Counter
-		++frameCount;
-		const auto fpsDuration = std::chrono::duration<float>(current_time - fpsTimer).count();
-		if (fpsDuration >= 1.0f)
-		{
-			printf("FPS: %d\n", frameCount);
-			frameCount = 0;
-			fpsTimer = current_time;
-		}
+		//// FPS Counter
+		// Still need to make a fps component
+		// 
+		//++frameCount;
+		//const auto fpsDuration = std::chrono::duration<float>(current_time - fpsTimer).count();
+		//if (fpsDuration >= 1.0f)
+		//{
+		//	printf("FPS: %d\n", frameCount);
+		//	frameCount = 0;
+		//	fpsTimer = current_time;
+		//}
 
 
 		const auto sleep_time = current_time + std::chrono::milliseconds(ms_per_frame) - std::chrono::high_resolution_clock::now();
