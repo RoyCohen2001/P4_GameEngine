@@ -16,6 +16,7 @@ namespace dae
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
+		void SetSize(unsigned int size);	
 
 		TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font);
 
@@ -29,6 +30,6 @@ namespace dae
 		std::string m_text;
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font;
-		std::shared_ptr<Texture2D> m_textTexture;
+		std::shared_ptr<Texture2D> m_texture;
 	};
 }

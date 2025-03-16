@@ -1,5 +1,7 @@
 #include "Command.h"
 
+using namespace dae;
+
 GameActorCommand::GameActorCommand(GameActor* actor):
 	m_actor(actor)
 {

@@ -1,5 +1,7 @@
 #include "GameActor.h"
 
+using namespace dae;
+
 GameActor::GameActor(const std::string& path) :
     m_Speed{ 10.0f },
     m_Transform{},
