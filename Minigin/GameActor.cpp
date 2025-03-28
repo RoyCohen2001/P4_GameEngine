@@ -2,7 +2,8 @@
 
 using namespace dae;
 
-GameActor::GameActor(const std::string& path) :
+GameActor::GameActor(GameObject* owner, const std::string& path) :
+	Component(owner),
     m_Speed{ 10.0f },
     m_Transform{},
     m_Texture{ new Texture2D(path) }
@@ -24,24 +25,9 @@ void GameActor::SetPosition(float x, float y)
     m_Transform.SetPosition(x, y, 0.0f);
 }
 
-void GameActor::MoveUp()
+void dae::GameActor::Move()
 {
-    m_Transform.SetY(m_Transform.GetY() + m_Speed);
-}
-
-void GameActor::MoveDown()
-{
-    m_Transform.SetY(m_Transform.GetY() - m_Speed);
-}
-
-void GameActor::MoveLeft()
-{
-    m_Transform.SetX(m_Transform.GetX() - m_Speed);
-}
-
-void GameActor::MoveRight()
-{
-    m_Transform.SetX(m_Transform.GetX() + m_Speed);
+	
 }
 
 void GameActor::Place()

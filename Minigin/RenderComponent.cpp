@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
 #include "Renderer.h"
 
-dae::RenderComponent::RenderComponent(GameObject* owner, std::shared_ptr<Texture2D> texture)
+dae::RenderComponent::RenderComponent(GameObject* owner,const std::shared_ptr<Texture2D>& texture)
 	: Component(owner),
 	m_Texture{ texture }
 {

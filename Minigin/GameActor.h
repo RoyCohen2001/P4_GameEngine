@@ -4,11 +4,10 @@
 #include "Component.h"
 
 namespace dae {
-	class GameActor
+	class GameActor final : public Component
     {
     public:
-        GameActor(const std::string& path);
-        ~GameActor() = default;
+        GameActor(GameObject* owner, const std::string& path);
 
         void Update(float deltaTime);
 
@@ -17,14 +16,17 @@ namespace dae {
         void SetPosition(float x, float y);
 
         // Move the actor
-        void MoveUp();
-        void MoveDown();
-        void MoveLeft();
-        void MoveRight();
+        void Move();
 
         // Executables
         void Place();
         void Explode();
+
+        virtual ~GameActor() = default;
+        GameActor(const GameActor& other) = delete;
+        GameActor(GameActor&& other) = delete;
+        GameActor& operator=(const GameActor& other) = delete;
+        GameActor& operator=(GameActor&& other) = delete;
 
     private:
         Transform m_Transform;

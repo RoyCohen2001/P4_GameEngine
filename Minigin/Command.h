@@ -18,25 +18,7 @@ namespace dae {
 		virtual ~GameActorCommand();
 	};
 
-	class MoveUp : public GameActorCommand
-	{
-	public:
-		virtual void Execute() override;
-	};
-
-	class MoveDown : public GameActorCommand
-	{
-	public:
-		virtual void Execute() override;
-	};
-
-	class MoveLeft : public GameActorCommand
-	{
-	public:
-		virtual void Execute() override;
-	};
-
-	class MoveRight : public GameActorCommand
+	class Move: public GameActorCommand
 	{
 	public:
 		virtual void Execute() override;
