@@ -1,4 +1,5 @@
 #include "Gamepad.h"
+#include <XInput.h>
 
 namespace dae {
     class Gamepad::Impl {
