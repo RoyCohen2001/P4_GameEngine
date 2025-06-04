@@ -21,19 +21,30 @@ namespace dae {
 	class Move: public GameActorCommand
 	{
 	public:
-		virtual void Execute() override;
-	};
+		Move(GameActor* actor) : GameActorCommand(actor) {}
 
-	class Place : public GameActorCommand
-	{
-	public:
-		virtual void Execute() override;
+		void Execute() override
+		{
+			GetGameActor()->Move();
+		}
 	};
-
-	class Explode : public GameActorCommand
-	{
-	public:
-		virtual void Execute() override;
-	};
+	
+	//class Place : public GameActorCommand
+	//{
+	//public:
+	//	void Execute() override
+	//	{
+	//		GetGameActor()->Place();
+	//	}
+	//};
+	//
+	//class Explode : public GameActorCommand
+	//{
+	//public:
+	//	void Execute() override
+	//	{
+	//		GetGameActor()->Explode();
+	//	}
+	//};
 }
 

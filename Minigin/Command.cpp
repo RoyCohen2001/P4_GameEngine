@@ -13,17 +13,3 @@ GameActorCommand::~GameActorCommand()
 	m_actor = nullptr;
 }
 
-void dae::Move::Execute()
-{
-}
-
-void Place::Execute()
-{
-	GetGameActor()->Place();
-}
-
-void Explode::Execute()
-{
-	GetGameActor()->Explode();
-}
-

@@ -12,6 +12,9 @@ namespace dae
 
         GameObject* GetOwner() const { return m_pOwner; }
 
+		virtual void SetDelete() { m_Delete = true; }
+		virtual bool IsDelete() const { return m_Delete; }
+
         explicit Component(GameObject* owner) : m_pOwner(owner) {}
         virtual ~Component() = default;
         Component(const Component& other) = delete;
@@ -21,5 +24,7 @@ namespace dae
 
     private:
         GameObject* m_pOwner{ nullptr };
+		bool m_Delete{ false };
     };
 }
+	

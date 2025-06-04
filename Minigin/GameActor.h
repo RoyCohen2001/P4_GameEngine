@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "Transform.h"
 #include "Texture2D.h"
 #include "Component.h"
@@ -9,7 +11,8 @@ namespace dae {
     public:
         GameActor(GameObject* owner, const std::string& path);
 
-        void Update(float deltaTime);
+        void Update(float deltaTime) override;
+        void Render() const override;
 
         // Set variables of the actor
         void SetSpeed(float speed);
@@ -30,7 +33,7 @@ namespace dae {
 
     private:
         Transform m_Transform;
-        Texture2D* m_Texture;
+        std::shared_ptr<Texture2D> m_Texture;
         float m_Speed;
     };
 }

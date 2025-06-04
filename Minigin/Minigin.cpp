@@ -94,9 +94,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto last_time = std::chrono::high_resolution_clock::now();
 	float lag = 0.0f;
 
-	//int frameCount = 0;
-	//auto fpsTimer = std::chrono::high_resolution_clock::now();
-
 	while (doContinue)
 	{
 		const auto current_time = std::chrono::high_resolution_clock::now();

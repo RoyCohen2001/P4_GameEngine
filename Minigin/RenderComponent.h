@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		RenderComponent(GameObject* owner,const std::shared_ptr<Texture2D>& texture);
-		void Update(float /*deltaTime*/) override {};
+		void Update(float /*deltaTime*/) override {}
 		void Render() const override;
 		void SetTexture(std::shared_ptr<Texture2D> texture);
 	private:
