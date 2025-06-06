@@ -66,9 +66,6 @@
     <ClInclude Include="Command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Gamepad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,12 +111,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TrashTheCache.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gamepad.cpp">

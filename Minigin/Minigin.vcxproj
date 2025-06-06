@@ -191,7 +191,6 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
-    <ClInclude Include="GameActor.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gamepad.h" />
     <ClInclude Include="InputManager.h" />
@@ -208,10 +207,8 @@
     <ClInclude Include="TrashTheCache.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
-    <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gamepad.cpp" />
     <ClCompile Include="InputManager.cpp" />

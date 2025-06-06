@@ -17,10 +17,46 @@
 #include "Scene.h"
 #include "TrashTheCache.h"
 #include "InputManager.h"
-#include "Command.h"
+#include "GameCommands.h"
 #include "GameActor.h"
 
 #include <iostream>
+
+void loadBackground()
+{
+	
+}
+
+
+
+void SetInputMapping(dae::GameActor* actor)
+{
+	auto* moveCommand = new dae::Move(actor);
+	auto* placeCommand = new dae::Place(actor);
+
+	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_UP, moveCommand);
+	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_DOWN, moveCommand);
+	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_RIGHT, moveCommand);
+	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_LEFT, moveCommand);
+
+	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::A, placeCommand);
+}
+
+std::vector<std::shared_ptr<dae::GameObject>> SetGameActors()
+{
+	std::vector<std::shared_ptr<dae::GameObject>> actors;
+
+	auto Bomberman = std::make_shared<dae::GameObject>();
+	Bomberman->AddComponent<dae::GameActor>("Sprites/Bomberman.png");
+	Bomberman->SetPosition(100, 100);
+
+	auto* bombermanActor = Bomberman->GetComponent<dae::GameActor>();
+	SetInputMapping(bombermanActor);
+
+	actors.push_back(Bomberman);
+
+	return actors;
+}
 
 void load()
 {
@@ -66,22 +102,13 @@ void load()
 	livesPlayer2->SetPosition(10, 95);
 	livesPlayer2->GetComponent<dae::TextComponent>()->SetSize(18);
 	scene.Add(livesPlayer2);
+	auto actors = SetGameActors();
 
-	auto Bomberman = std::make_shared<dae::GameObject>();
-	Bomberman->AddComponent<dae::GameActor>("Sprites/Bomberman.png");
-	Bomberman->SetPosition(100, 100);
-	scene.Add(Bomberman);
-
-	// Retrieve the GameActor pointer
-	auto* bombermanActor = Bomberman->GetComponent<dae::GameActor>();
-	//
-	auto* moveCommand = new dae::Move(bombermanActor);
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::A, moveCommand);
-
-	//ttc::TrashTheCache trash;
-	//trash.RunIntegerBenchmark();
-	//trash.RunGameObjectBenchmark();
-	//trash.RunGameObjectAltBenchmark();
+	for (auto actor : actors)
+	{
+		scene.Add(actor);
+	}
+	
 }
 
 int main(int, char* []) {
