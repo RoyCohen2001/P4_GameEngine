@@ -16,14 +16,18 @@ namespace dae {
 		return true;
 	}
 
-	InputManager::InputManager():
-		m_pGamepad(std::make_unique<Gamepad>(0))
+	InputManager::InputManager()
 	{
+
+		m_pGamepads.emplace_back(std::make_unique<Gamepad>(0)); // Player 1
+		m_pGamepads.emplace_back(std::make_unique<Gamepad>(1)); // Player 2
+
+		m_GamepadCommands.resize(2);
 	}
 
-	void InputManager::BindCommandToGamepad(Button button, Command* command)
+	void InputManager::BindCommandToGamepad(int controllerIdx, InputState state, Button button, Command* command)
 	{
-		m_GamepadCommands[button] = command;
+		m_GamepadCommands[controllerIdx][button] = std::make_pair(command, state);
 	}
 	
 	void InputManager::BindCommandToKeyboard(unsigned int key, Command* command)
@@ -60,31 +64,47 @@ namespace dae {
 
 	void InputManager::ProcessControllerInput()
 	{
-		m_pGamepad->Update();
-		
-		for (const auto& [button, command]: m_GamepadCommands)
+		for (size_t i = 0; i < m_pGamepads.size(); ++i)
 		{
-			if (m_pGamepad->IsPressed(button) && command)
+			m_pGamepads[i]->Update();
+			for (const auto& [button, commandPair] : m_GamepadCommands[i])
 			{
-				command->Execute();
+				Command* command = commandPair.first;
+				InputState state = commandPair.second;
+
+				bool execute = false;
+				switch (state)
+				{
+				case InputState::Pressed:
+					execute = m_pGamepads[i]->IsPressed(button);
+					break;
+				case InputState::DownThisFrame:
+					execute = m_pGamepads[i]->IsDownThisFrame(button);
+					break;
+				case InputState::UpThisFrame:
+					execute = m_pGamepads[i]->IsUpThisFrame(button);
+					break;
+				}
+				if (execute && command)
+					command->Execute();
 			}
 		}
 	}
 
-	bool dae::InputManager::IsDownThisFrame(unsigned int button) const
-	{
-		return m_pGamepad->IsDownThisFrame(static_cast<Button>(button));
-	}
-	
-	bool dae::InputManager::IsUpThisFrame(unsigned int button) const
-	{
-		return m_pGamepad->IsUpThisFrame(static_cast<Button>(button));
-	}
-	
-	bool dae::InputManager::IsPressed(unsigned int button) const
-	{
-		return m_pGamepad->IsPressed(static_cast<Button>(button));
-	}
+	//bool dae::InputManager::IsDownThisFrame(unsigned int button, int controllerIdx) const
+	//{
+	//	return m_pGamepads[controllerIdx]->IsDownThisFrame(static_cast<Button>(button));
+	//}
+	//
+	//bool dae::InputManager::IsUpThisFrame(unsigned int button, int controllerIdx) const
+	//{
+	//	return m_pGamepads[controllerIdx]->IsUpThisFrame(static_cast<Button>(button));
+	//}
+	//
+	//bool dae::InputManager::IsPressed(unsigned int button, int controllerIdx) const
+	//{
+	//	return m_pGamepads[controllerIdx]->IsPressed(static_cast<Button>(button));
+	//}
 	
 }
 

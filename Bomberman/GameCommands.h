@@ -17,12 +17,18 @@ namespace dae {
 	class Move : public GameCommands
 	{
 	public:
-		Move(GameActor* actor) : GameCommands(actor) {}
+		Move(GameActor* actor, const glm::vec2& direction) :
+			GameCommands(actor),
+			m_Direction(direction)
+		{
+		}
 
 		void Execute() override
 		{
-			GetGameActor()->Move();
+			GetGameActor()->Move(m_Direction);
 		}
+	private:
+		glm::vec2 m_Direction;
 	};
 
 	class Place : public GameCommands

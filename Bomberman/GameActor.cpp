@@ -8,16 +8,20 @@ using namespace dae;
 
 GameActor::GameActor(GameObject* owner, const std::string& path) :
 	Component(owner),
-    m_Speed{ 10.0f },
     m_Transform{},
 	m_Texture{ ResourceManager::GetInstance().LoadTexture(path) }
 {
     
 }
 
-void GameActor::Update(float /*deltaTime*/)
+void GameActor::Update(float deltaTime)
 {
-    // Update logic here
+    if (m_MoveDirection != glm::vec2{ 0.0f, 0.0f })
+    {
+        auto pos = GetOwner()->GetTransform().GetPosition();
+        SetPosition(pos.x + m_MoveDirection.x * m_Speed * deltaTime, pos.y + m_MoveDirection.y * m_Speed * deltaTime);
+        m_MoveDirection = glm::vec2{ 0.0f, 0.0f };
+    }
 
     
 }
@@ -37,19 +41,19 @@ void GameActor::SetSpeed(float speed)
 
 void GameActor::SetPosition(float x, float y)
 {
-    m_Transform.SetPosition(x, y, 0.0f);
+    GetOwner()->SetPosition(x ,y );
 }
 
-void GameActor::Move()
+void GameActor::Move(const glm::vec2& direction)
 {
-	// Implement movement logic here
-	// For example, you could update the position based on speed and direction
-	// m_Transform.SetPosition(m_Transform.GetPosition().x + m_Speed * deltaTime, m_Transform.GetPosition().y);
-	std::cout << "Moving" << std::endl;
+	m_MoveDirection = direction;
+
+    std::cout << "Moving" << std::endl;
 }
 
 void GameActor::Place()
 {
+    std::cout << "PLaced" << std::endl;
 }
 
 void GameActor::Explode()

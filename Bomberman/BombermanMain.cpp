@@ -29,31 +29,61 @@ void loadBackground()
 
 
 
-void SetInputMapping(dae::GameActor* actor)
+void SetInputMappingController(dae::GameActor* actor, int controller)
 {
-	auto* moveCommand = new dae::Move(actor);
-	auto* placeCommand = new dae::Place(actor);
+	dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::Pressed, dae::Button::DPAD_UP, new dae::Move(actor, glm::vec2{ 0, -1 }));
+	dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::Pressed, dae::Button::DPAD_DOWN, new dae::Move(actor, glm::vec2{ 0, 1 }));
+	dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::Pressed, dae::Button::DPAD_LEFT, new dae::Move(actor, glm::vec2{ -1, 0 }));
+	dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::Pressed, dae::Button::DPAD_RIGHT, new dae::Move(actor, glm::vec2{ 1, 0 }));
 
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_UP, moveCommand);
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_DOWN, moveCommand);
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_RIGHT, moveCommand);
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::DPAD_LEFT, moveCommand);
+	dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::DownThisFrame   , dae::Button::A, new dae::Place(actor));
+}
 
-	dae::InputManager::GetInstance().BindCommandToGamepad(dae::Button::A, placeCommand);
+void SetInputMappingKeyboard(dae::GameActor* actor)
+{
+	dae::InputManager::GetInstance().BindCommandToKeyboard( SDL_SCANCODE_UP,		new dae::Move(actor, glm::vec2{ 0, -1 }));
+	dae::InputManager::GetInstance().BindCommandToKeyboard( SDL_SCANCODE_DOWN,	new dae::Move(actor, glm::vec2{ 0, 1 }));
+	dae::InputManager::GetInstance().BindCommandToKeyboard( SDL_SCANCODE_LEFT,	new dae::Move(actor, glm::vec2{ -1, 0 }));
+	dae::InputManager::GetInstance().BindCommandToKeyboard( SDL_SCANCODE_RIGHT, new dae::Move(actor, glm::vec2{ 1, 0 }));
+
+	//dae::InputManager::GetInstance().BindCommandToGamepad(controller, dae::InputState::DownThisFrame, dae::Button::A, new dae::Place(actor));
 }
 
 std::vector<std::shared_ptr<dae::GameObject>> SetGameActors()
 {
 	std::vector<std::shared_ptr<dae::GameObject>> actors;
 
+	// Player 1
 	auto Bomberman = std::make_shared<dae::GameObject>();
-	Bomberman->AddComponent<dae::GameActor>("Sprites/Bomberman.png");
-	Bomberman->SetPosition(100, 100);
+	Bomberman->AddComponent<dae::GameActor>("Sprites/Bomberman_NoAnim.png");
 
 	auto* bombermanActor = Bomberman->GetComponent<dae::GameActor>();
-	SetInputMapping(bombermanActor);
+	bombermanActor->SetPosition(100, 100);
+	bombermanActor->SetSpeed(200.f);
 
 	actors.push_back(Bomberman);
+
+	// Set input mapping for Player 1
+	SetInputMappingController(bombermanActor, 0);
+	SetInputMappingKeyboard(bombermanActor);
+
+	// *********************************************************
+
+	// Player 2
+	auto Bomberman2 = std::make_shared<dae::GameObject>();
+	Bomberman2->AddComponent<dae::GameActor>("Sprites/Bomberman2_NoAnim.png");
+
+	auto* bombermanActor2 = Bomberman2->GetComponent<dae::GameActor>();
+	bombermanActor2->SetPosition(200, 100);
+	bombermanActor2->SetSpeed(200.f);
+
+	actors.push_back(Bomberman2);
+
+	// Set input mapping for Player 2
+	SetInputMappingController(bombermanActor2, 1);
+
+
+	
 
 	return actors;
 }

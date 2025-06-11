@@ -19,7 +19,7 @@ namespace dae {
         void SetPosition(float x, float y);
 
         // Move the actor
-        void Move();
+        void Move(const glm::vec2& direction);
 
         // Executables
         void Place();
@@ -34,6 +34,8 @@ namespace dae {
     private:
         Transform m_Transform;
         std::shared_ptr<Texture2D> m_Texture;
-        float m_Speed;
+        float m_Speed = 50.f;
+        glm::vec2 m_MoveDirection{ 0.0f, 0.0f };
+
     };
 }

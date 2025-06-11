@@ -2,10 +2,18 @@
 #include <map>
 #include "Singleton.h"
 #include "Gamepad.h"
+#include <vector>
 #include "Command.h"
 
 namespace dae
 {
+	enum class InputState
+	{
+		Pressed,       
+		DownThisFrame, 
+		UpThisFrame    
+	};
+
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
@@ -18,7 +26,7 @@ namespace dae
 
 		bool ProcessInput();
 
-		void BindCommandToGamepad(Button button, Command* command);
+		void BindCommandToGamepad(int controllerIdx, InputState state, Button button, Command* command);
 		void BindCommandToKeyboard(unsigned int key, Command* command);
 
 	private:
@@ -29,13 +37,10 @@ namespace dae
 
 		bool ProcessKeyboardInput();
 		void ProcessControllerInput();
-		
-		bool IsDownThisFrame(unsigned int button) const;
-		bool IsUpThisFrame(unsigned int button) const;
-		bool IsPressed(unsigned int button) const;
 
-		std::unique_ptr<Gamepad> m_pGamepad;
-		std::map<Button, Command*> m_GamepadCommands;
+		std::vector<std::unique_ptr<Gamepad>> m_pGamepads;
+		std::vector<std::map<Button, std::pair<Command*, InputState>>> m_GamepadCommands;
+
 		std::map<unsigned int, Command*> m_KeyboardCommands;
 
 		unsigned int buttonsPressedThisFrame{};
