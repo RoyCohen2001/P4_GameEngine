@@ -16,6 +16,8 @@ namespace dae
 		void SetText(const std::string& text);
 		void SetSize(const unsigned int size);	
 
+		std::shared_ptr<Texture2D> GetTexture() const;
+
 		TextComponent(GameObject* owner, const std::string& text, std::shared_ptr<Font> font);
 
 		~TextComponent() override = default;

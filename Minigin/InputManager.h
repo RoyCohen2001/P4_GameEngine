@@ -26,6 +26,7 @@ namespace dae
 
 		bool ProcessInput();
 
+		void ClearBindings();
 		void BindCommandToGamepad(int controllerIdx, InputState state, Button button, Command* command);
 		void BindCommandToKeyboard(unsigned int key, Command* command);
 

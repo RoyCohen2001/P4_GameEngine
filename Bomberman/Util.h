@@ -1,0 +1,35 @@
+#pragma once
+
+
+
+
+enum class Events
+{
+	DIE_PLAYER,
+	DIE_ENEMY,
+	EXIT,
+	POWERUP,
+
+	BOMB,
+	USE,
+	DETONATOR,
+
+	TAKE_DAMAGE,
+	SCORE_CHANGED,
+	RESPAWN,
+
+	SINGLE,
+	COOP,
+	PVP,
+	HIGHSCORES,
+
+	WIN,
+	RESTART,
+	LOST,
+
+	CONTINUE,
+	BACK,
+	UP,
+	DOWN,
+};
+

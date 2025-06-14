@@ -25,6 +25,18 @@ namespace dae {
 		m_GamepadCommands.resize(2);
 	}
 
+	void InputManager::ClearBindings()
+	{
+		for (auto& gamepadCommands : m_GamepadCommands)
+		{
+			gamepadCommands.clear();
+		}
+		if (!m_KeyboardCommands.empty())
+		{
+			m_KeyboardCommands.clear();
+		}
+	}
+
 	void InputManager::BindCommandToGamepad(int controllerIdx, InputState state, Button button, Command* command)
 	{
 		m_GamepadCommands[controllerIdx][button] = std::make_pair(command, state);
@@ -90,21 +102,6 @@ namespace dae {
 			}
 		}
 	}
-
-	//bool dae::InputManager::IsDownThisFrame(unsigned int button, int controllerIdx) const
-	//{
-	//	return m_pGamepads[controllerIdx]->IsDownThisFrame(static_cast<Button>(button));
-	//}
-	//
-	//bool dae::InputManager::IsUpThisFrame(unsigned int button, int controllerIdx) const
-	//{
-	//	return m_pGamepads[controllerIdx]->IsUpThisFrame(static_cast<Button>(button));
-	//}
-	//
-	//bool dae::InputManager::IsPressed(unsigned int button, int controllerIdx) const
-	//{
-	//	return m_pGamepads[controllerIdx]->IsPressed(static_cast<Button>(button));
-	//}
 	
 }
 

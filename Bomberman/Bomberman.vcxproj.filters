@@ -24,12 +24,21 @@
     <ClCompile Include="GameCommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,9 @@
 #pragma once
 #include "Command.h"
 #include "GameActor.h"
+#include "SceneManager.h"
+#include "MenuManager.h"
+#include <iostream>
 
 namespace dae {
 
@@ -52,5 +55,67 @@ namespace dae {
 			GetGameActor()->Explode();
 		}
 	};
+
+	// MENU COMMANDS
+
+	class MenuSelect : public GameCommands
+	{
+	public:
+		MenuSelect(GameActor* actor, MenuManager* menuManager) : GameCommands(actor), m_MenuManager(menuManager) {}
+		void Execute() override
+		{
+			if (m_MenuManager) {
+				m_MenuManager->Select();
+
+				std::cout << "Selected index: " << m_MenuManager->GetSelectedIndex() << std::endl;
+			}
+		}
+	private:
+		MenuManager* m_MenuManager;
+	};
+
+	class MenuMoveUp : public GameCommands
+	{
+	public:
+		MenuMoveUp(GameActor* actor, MenuManager* menuManager) : GameCommands(actor), m_MenuManager(menuManager) {}
+		void Execute() override
+		{
+			if (m_MenuManager) {
+				if (m_MenuManager->GetSelectedIndex() <= 3 && m_MenuManager->GetSelectedIndex() > 0)
+				{
+					m_MenuManager->MoveUp();
+					GetGameActor()->SetPosition(
+						GetGameActor()->GetPosition().x,
+						GetGameActor()->GetPosition().y - 25);
+				}
+
+				std::cout << "Selected index: " << m_MenuManager->GetSelectedIndex() << std::endl;
+			}
+		}
+	private:
+		MenuManager* m_MenuManager;
+	};
+
+	class MenuMoveDown : public GameCommands
+	{
+	public:
+		MenuMoveDown(GameActor* actor, MenuManager* menuManager) : GameCommands(actor), m_MenuManager(menuManager) {}
+		void Execute() override
+		{
+			if (m_MenuManager) {
+				if (m_MenuManager->GetSelectedIndex() < 3 && m_MenuManager->GetSelectedIndex() >= 0)
+				{
+					m_MenuManager->MoveDown();
+					GetGameActor()->SetPosition(
+						GetGameActor()->GetPosition().x,
+						GetGameActor()->GetPosition().y + 25);
+				}
+				std::cout << "Selected index: " << m_MenuManager->GetSelectedIndex() << std::endl;
+			}
+		}
+	private:
+		MenuManager* m_MenuManager;
+	};
+
 
 }

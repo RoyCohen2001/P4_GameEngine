@@ -59,4 +59,9 @@ void dae::TextComponent::SetSize(const unsigned int size)
 	m_needsUpdate = true;
 }
 
+std::shared_ptr<dae::Texture2D> dae::TextComponent::GetTexture() const
+{
+	return m_texture;
+}
+
 

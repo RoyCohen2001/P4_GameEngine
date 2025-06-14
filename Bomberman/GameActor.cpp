@@ -14,6 +14,12 @@ GameActor::GameActor(GameObject* owner, const std::string& path) :
     
 }
 
+void dae::GameActor::OnNotify(Event event, GameObject* gameObject)
+{
+
+	Notify(event, gameObject);
+}
+
 void GameActor::Update(float deltaTime)
 {
     if (m_MoveDirection != glm::vec2{ 0.0f, 0.0f })
@@ -42,6 +48,11 @@ void GameActor::SetSpeed(float speed)
 void GameActor::SetPosition(float x, float y)
 {
     GetOwner()->SetPosition(x ,y );
+}
+
+glm::vec3 dae::GameActor::GetPosition() const
+{
+   return GetOwner()->GetTransform().GetPosition();
 }
 
 void GameActor::Move(const glm::vec2& direction)

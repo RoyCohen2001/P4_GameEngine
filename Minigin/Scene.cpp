@@ -50,3 +50,8 @@ void Scene::Render() const
 	}
 }
 
+std::string Scene::getSceneName()
+{
+	return m_name;
+}
+
